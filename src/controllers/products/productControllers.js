@@ -1,3 +1,5 @@
+const Product = require("../../models/product");
+
 const products = [
     {
         title: "Bag",
@@ -19,25 +21,30 @@ const products = [
     },
 ]
 
-function getProducts() {
+async function getProducts() {
     //this will get products form the database
+    const products = await Product.find()
     return products
 }
 
 
-function getProductById(productId) {
+async function getProductById(productId) {
     //will get the product from the database with id = id
-    const product = products[productId]
-    return product
+    try {
+        const product = await Product.findById(productId)
+        return product
+    } catch (err) {
+        //we can also return customized error message
+        console.log(err)
+    }
 }
 
-function createProduct(product) {
+async function createProduct(product) {
     //insert inot db and retrun xreated product
 
-    const newProduct = {
-        id: 4,
-        ...product
-    }
+    const newProduct = await Product.create(product)
+
+
     return newProduct
 }
 
