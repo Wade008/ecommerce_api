@@ -1,9 +1,11 @@
 
 const express = require("express");
 const mongoose = require("mongoose");
-const productRouter = require("./controllers/products/productRoutes")
 
+const productRouter = require("./controllers/products/productRoutes")
 const cartRouter = require("./controllers/carts/cartRoutes")
+const userRouter = require("./controllers/users/userRoutes")
+
 
 const app = express();
 app.use(express.json());
@@ -20,6 +22,7 @@ app.get("/", (req, res) => {
 //flows from index -> to routes -> to controllers
 app.use("/products", productRouter)
 app.use("/carts", cartRouter)
+app.use("/users", userRouter)
 
 
 // Listener
