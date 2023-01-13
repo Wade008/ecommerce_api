@@ -1,7 +1,7 @@
 const { response } = require("express");
 const express = require("express");
 
-const { getProducts, getProductById, createProduct} = require("./productControllers")
+const { getProducts, getProductById, createProduct, deleteProduct} = require("./productControllers")
 
 const productRouter = express.Router();
 
@@ -32,6 +32,12 @@ productRouter.post("/", async (req,res) => {
     })
     res.json(product)
 })
+
+productRouter.delete("/:productId", async (req, res) => {
+    const product = await deleteProduct(req.params.productId)
+    res.json(product)
+})
+
 
 
 

@@ -29,10 +29,20 @@ async function createProduct(product) {
     return newProduct
 }
 
+async function deleteProduct(productId){
+     //deteleOne and deleteMany will delete but not return the records
+    //findByIdAndDelete and findOneAndDelete will detele and return the deleted record
+    const deletedProduct = await Product.findByIdAndDelete(productId)
+    return deletedProduct
+}
+
+
+
 module.exports = {
     getProducts,
     getProductById,
-    createProduct
+    createProduct,
+    deleteProduct,
 }
 
 // const products = [
