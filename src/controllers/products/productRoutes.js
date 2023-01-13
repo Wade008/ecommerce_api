@@ -4,6 +4,8 @@ const express = require("express");
 const { getProducts, getProductById, createProduct, deleteProduct} = require("./productFunctions")
 
 const auth = require("../../middlewares/auth");
+const admin = require("../../middlewares/admin");
+
 
 const productRouter = express.Router();
 
@@ -11,7 +13,7 @@ const productRouter = express.Router();
 
 productRouter.get("/", async (req, res) => {
     const products = await getProducts()
-    res.json(products)
+    return res.json(products)
 })
 
 productRouter.get("/:productId", async (req, res) => {
@@ -22,7 +24,7 @@ productRouter.get("/:productId", async (req, res) => {
             data: "Product does not exist"
         })
     }
-    res.json(product)
+    return res.json(product)
 })
 
 productRouter.post("/", auth, async (req,res) => {
@@ -33,12 +35,12 @@ productRouter.post("/", auth, async (req,res) => {
         price: req.body.price,
         stock: req.body.stock
     })
-    res.json(product)
+    return res.json(product)
 })
 
-productRouter.delete("/:productId", async (req, res) => {
+productRouter.delete("/:productId", auth, admin,  async (req, res) => {
     const product = await deleteProduct(req.params.productId)
-    res.json(product)
+    return res.json(product)
 })
 
 

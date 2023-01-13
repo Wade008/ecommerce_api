@@ -8,18 +8,18 @@ const cartRouter = express.Router();
 
 cartRouter.get("/", async (req, res) => {
     const carts = await getCarts()
-    res.json(carts)
+    return res.json(carts)
 })
 
 cartRouter.get("/:cartId", async (req, res) => {
 
     const cart = await getCartById(req.params.cartId)
     if (!cart) {
-        res.status(404).json({
+        return res.status(404).json({
             data: "Cart does not exist"
         })
     }
-    res.json(cart)
+    return res.json(cart)
 })
 
 // /carts/user/userId?getProductInfo=true
@@ -31,11 +31,11 @@ cartRouter.get("/user/:userId", async (request, response) => {
         cart = await getCartByUserId(request.params.userId)
     }
     if (!cart) {
-        response.status(404).json({
+        return response.status(404).json({
             data: "cart doesn't exist",
         })
     }
-    response.json(cart)
+    return response.json(cart)
 })
 
 module.exports = cartRouter;
